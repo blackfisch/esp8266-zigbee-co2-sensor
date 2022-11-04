@@ -25,7 +25,7 @@ Ziel soll es sein, einen Luftqualitätssensor umzusetzen, der mittels einer LED 
 ## 3. Methode
 Als Basis des Projekts dient ein NodeMCU Entwicklerboard auf Basis des ESP8266 Mikrocontrollers. Zur Verbindung via Zigbee dient ein CC2530 Funkmodul, für die CO<sub>2</sub> Messung wird ein MQ-135 Gas Sensor eingesetzt.
 
-Die Komponenten werden gemeinsam auf einer Steckplatine zusammengebaut. Eine Software sorgt dafür, dass die Sensorwerte ausgelesen, übermittelt und mittels LED und einem e-Paper dargestellt werden können.
+Die Komponenten werden gemeinsam auf einer Steckplatine zusammengebaut. Eine Software wird entwickelt und sorgt dafür, dass die Sensorwerte ausgelesen, übermittelt und mittels LED und einem e-Paper dargestellt werden können. Als Programmiersprachen kommen für dieses Projekt MicroPython oder C++ (Arduino IDE) in Frage, die Entscheidung dazu hängt vom Vorhandensein notwendiger Bibliotheken (E-Paper & RF-Modul) ab.
 
 
 ## 4. Material
