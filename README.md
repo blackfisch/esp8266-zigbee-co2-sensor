@@ -43,11 +43,27 @@ Zur Umsetzung des Projekts sind diverse Hardwarekomponenten notwendig. Diese sin
 
 ## 5. Zeitplan & Meilensteine
 - 07.11.2022 - Exposé, Projekteinrichtung, "Hello World" für NodeMCU
+    - Zusammenstellen der Hardware
+    - Recherche
+    - Schreiben des Exposé
+    - Einrichtung des Git-Repository & IDE
 - 21.11.2022 - Auslesen von Sensorwerten via Serial Output
+    - Zusammenstellen der Hardware
+    - Recherche
+    - Erstellen nötiger Skripte
 - 05.12.2022 - Ausgabe der Sensorwerte auf ePaper & Darstellung Luftqualität via LED
+    - Zusammenstellen der Hardware
+    - Recherche
+    - Erstellen nötiger Skripte
 - 02.01.2023 - Verbindung des CC2530 in das Zigbee-Netz
+    - Zusammenstellen der Hardware
+    - Recherche
+    - Flashen der nötigen Firmware(s)
+    - Erstellen nötiger Skripte
 - 16.01.2023 - Übermittlung der Sensordaten via Zigbee
+    - Erstellen nötiger Skripte
 - 23.01.2023 - Optimierung; Projektabnahme
+    - Überarbeitung der Skripte
 
 
 ## 6. vorläufiges Literaturverzeichnis
