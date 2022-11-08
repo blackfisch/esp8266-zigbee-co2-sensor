@@ -1,4 +1,5 @@
 # Projekt Eingebettete Systeme
+Rico Goldhardt\
 <sup>PTI09450 - Westsächsische Hochschule Zwickau</sup>
 
 
