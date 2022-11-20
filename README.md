@@ -43,12 +43,12 @@ Zur Umsetzung des Projekts sind diverse Hardwarekomponenten notwendig. Diese sin
 
 
 ## 5. Zeitplan & Meilensteine
-- 07.11.2022 - Exposé, Projekteinrichtung, "Hello World" für NodeMCU
+- 07.11.2022 - Exposé, Projekteinrichtung, "Hello World" für NodeMCU | [[Code]](src/1_hello_world/1_hello_world.ino)
     - Zusammenstellen der Hardware
     - Recherche
     - Schreiben des Exposé
     - Einrichtung des Git-Repository & IDE
-- 21.11.2022 - Auslesen von Sensorwerten via Serial Output
+- 21.11.2022 - Auslesen von Sensorwerten via Serial Output | [[Code]](src/2_read_analog_sensor/2_read_analog_sensor.ino)
     - Zusammenstellen der Hardware
     - Recherche
     - Erstellen nötiger Skripte
@@ -75,3 +75,4 @@ Zur Umsetzung des Projekts sind diverse Hardwarekomponenten notwendig. Diese sin
 - [Github: waveshare - e-Paper](https://github.com/waveshare/e-Paper/tree/master/Arduino/epd2in9)
 - [GitHub: DougWilkinson - sensor-mqtt-homeassistant](https://github.com/DougWilkinson/sensor-mqtt-homeassistant)
 - [GitHub: mcauser - micropython-waveshare-epaper](https://github.com/mcauser/micropython-waveshare-epaper)
+- [Github: miguel5612 - MQSensorsLib](https://github.com/miguel5612/MQSensorsLib)
