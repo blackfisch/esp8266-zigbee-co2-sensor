@@ -6,6 +6,8 @@
 *.7z
 !.gitignore
 
+secrets.h
+
 
 # VS Code
 .vscode/*

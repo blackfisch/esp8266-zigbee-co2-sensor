@@ -83,7 +83,7 @@ void setup()
         Serial.print(".");
     }
     //   MQ135.setR0(calcR0 / 10);
-    MQ135.setR0(79);
+    MQ135.setR0(100);
     Serial.println("  done!.");
 
     if (isinf(calcR0))

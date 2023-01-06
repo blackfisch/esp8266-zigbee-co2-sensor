@@ -1,0 +1,167 @@
+/*
+  MQUnifiedsensor Library - reading an MQ135
+
+  Demonstrates the use a MQ135 sensor.
+  Library originally added 01 may 2019
+  by Miguel A Califa, Yersson Carrillo, Ghiordy Contreras, Mario Rodriguez
+
+  Added example
+  modified 23 May 2019
+  by Miguel Califa
+
+  Updated library usage
+  modified 26 March 2020
+  by Miguel Califa
+
+  Wiring:
+  https://github.com/miguel5612/MQSensorsLib_Docs/blob/master/static/img/MQ_Arduino.PNG
+  Please make sure arduino A0 pin represents the analog input configured on #define pin
+
+ This example code is in the public domain.
+*/
+
+// Include the library
+// #include <MQUnifiedsensor.h>
+#include <RGBLed.h>
+#include <DHT.h>
+#include <MQ135.h>
+
+// Definitions
+#define placa "ESP8266"
+#define Voltage_Resolution 3.3
+#define pin A0                 // Analog input 0 of your arduino
+#define type "MQ-135"          // MQ135
+#define ADC_Bit_Resolution 10  // For arduino UNO/MEGA/NANO
+#define RatioMQ135CleanAir 4.4 // RS / R0 = 3.6 ppm  // Datasheet = 4.4
+#define R0_AMBIENT 125
+
+#define DHTTYPE DHT11
+#define DHTPIN D5 // SDD3 Pin
+
+#define PIN_RED D1   // pin that red led is connected to
+#define PIN_GREEN D2 // pin that green led is connected to
+#define PIN_BLUE D3  // pin that blue led is connected to
+// #define calibration_button 13 //Pin to calibrate your sensor
+
+// Declare Sensor
+MQ135 gasSensor = MQ135(pin, R0_AMBIENT);
+// MQUnifiedsensor MQ135(placa, Voltage_Resolution, ADC_Bit_Resolution, pin, type);
+RGBLed led(PIN_RED, PIN_GREEN, PIN_BLUE, RGBLed::COMMON_ANODE);
+DHT dht(DHTPIN, DHTTYPE);
+
+struct HT
+{
+  float h;
+  float t;
+};
+
+void setup()
+{
+  // Init the serial port communication - to debug the library
+  Serial.begin(9600); // Init serial port
+
+  // Set math model to calculate the PPM concentration and the value of constants
+  // MQ135.setRegressionMethod(1); //_PPM =  a*ratio^b
+  // MQ135.setA(110.47);
+  // MQ135.setB(-2.862);
+
+  /*****************************  MQ Init ********************************************/
+  // MQ135.init();
+  // MQ135.setR0(R0_AMBIENT);
+
+  /*****************************  DEBUG ********************************************/
+  // MQ135.serialDebug(true);
+
+  led.off();
+  led.brightness(50);
+
+  dht.begin();
+}
+
+#define NUM_READINGS 10
+float vals[NUM_READINGS];
+int i = 0;
+float average = -1;
+
+#define DELAY 1000
+
+void loop()
+{
+  HT ht = read_dht();
+  float hic = dht.computeHeatIndex(ht.t, ht.h, false);
+  Serial.print("Humidity: ");
+  Serial.print(ht.h);
+  Serial.print(" | Temperature: ");
+  Serial.print(ht.t);
+  Serial.print("°C | Head Index: ");
+  Serial.print(hic);
+  Serial.println("°C");
+
+  vals[i] = gasSensor.getCorrectedPPM(ht.t, ht.h);
+  Serial.println(vals[i]);
+  // MQ135.update();
+  // vals[i] = MQ135.readSensor();
+  i++;
+  if (i == NUM_READINGS)
+  {
+    i = 0;
+    average = calc_average();
+  }
+
+  // MQ135.serialDebug();
+  update_display(average);
+
+  delay(DELAY);
+}
+
+HT read_dht()
+{
+  // Reading temperature or humidity takes about 250 milliseconds!
+  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
+  float h = dht.readHumidity();
+  // Read temperature as Celsius (the default)
+  float t = dht.readTemperature();
+
+  // Check if any reads failed and exit early (to try again).
+  if (isnan(h) || isnan(t))
+  {
+    Serial.println(F("Failed to read from DHT sensor!"));
+    return {h, t};
+  }
+
+  return {h, t};
+}
+
+void update_display(float val)
+{
+  if (val >= 2000)
+  {
+    led.flash(RGBLed::RED, DELAY / 2, DELAY);
+  }
+  else if (val > 1400)
+  {
+    led.setColor(RGBLed::RED);
+  }
+  else if (val > 1000)
+  {
+    led.setColor(255, 165, 0); // orange
+  }
+  else if (val > 800)
+  {
+    led.setColor(RGBLed::YELLOW);
+  }
+  else
+  {
+    led.setColor(RGBLed::GREEN);
+  }
+}
+
+float calc_average()
+{
+  float sum = 0;
+  for (int i = 0; i < NUM_READINGS; i++)
+  {
+    sum += vals[i];
+  }
+  return sum / NUM_READINGS;
+}
